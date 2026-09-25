@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-26T04:40:00+09:00",
+  "title": "Design System: Lantern IDE 소개 사이트",
+  "extensions": {
+    "colorMeta": {
+      "ide-ground": { "role": "neutral", "displayName": "IDE Ground", "canonical": "#16171c", "tonalRamp": ["#0b0b0e", "#111216", "#16171c", "#202128", "#2a2c35", "#3a3d49", "#6f7585", "#d5d8e0"] },
+      "action-indigo": { "role": "primary", "displayName": "Action Indigo", "canonical": "#5b62e6", "tonalRamp": ["#1d1f52", "#2b2f7a", "#3d42a8", "#4f55d8", "#5b62e6", "#7c83ff", "#9aa3ff", "#d6d9ff"] },
+      "context-teal": { "role": "primary", "displayName": "Context Teal", "canonical": "#2cc6e0", "tonalRamp": ["#063a44", "#0a5563", "#0b7f94", "#16a3bb", "#2cc6e0", "#5cd6ea", "#9be6f3", "#dff7fb"] },
+      "impact-red": { "role": "secondary", "displayName": "Impact Red", "canonical": "#f2656a", "tonalRamp": ["#4a1417", "#7a2227", "#a8323a", "#c9353b", "#f2656a", "#f68e92", "#f9b7ba", "#fde4e5"] },
+      "impact-amber": { "role": "secondary", "displayName": "Impact Amber", "canonical": "#dcae3a", "tonalRamp": ["#3d2f08", "#5f4a0c", "#9a6b00", "#bf9022", "#dcae3a", "#e6c46c", "#f0da9e", "#faf1d9"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "첫 화면 제목 한 곳" },
+      "headline": { "displayName": "Headline", "purpose": "각 절의 제목" },
+      "code": { "displayName": "Code", "purpose": "diff, 경로, 명령에만" }
+    },
+    "shadows": [
+      { "name": "panel-lift", "value": "0 14px 36px rgba(0,0,0,0.38)", "purpose": "승인 카드, 앱 화면 캡처" },
+      { "name": "floating-header", "value": "0 10px 30px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.3)", "purpose": "작업 머리글" },
+      { "name": "action-glow", "value": "0 8px 22px rgba(91,98,230,0.32), 0 1px 2px rgba(0,0,0,0.4)", "purpose": "받기 버튼 한 곳" }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "머리글 등장, 버튼 떠오름" },
+      { "name": "map-approach", "value": "exponential 170ms (camera 260ms)", "purpose": "지도 노드가 단계 목표로 다가가는 속도" },
+      { "name": "impact-ripple", "value": "2400ms loop", "purpose": "영향 단계의 파문. 움직임 줄이기에서는 없음" }
+    ],
+    "breakpoints": [{ "name": "stacked", "value": "900px" }]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "운영체제에 맞는 설치 파일 받기. 페이지에 하나.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"><rect x=\"1.5\" y=\"2\" width=\"13\" height=\"9\" rx=\"1\"/><path d=\"M8 5v4M6 7.5 8 9.5l2-2M5 14h6\"/></svg><span>Windows용 받기</span><span class=\"ds-meta\">0.1.1 · 9.1 MB</span></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px; border-radius: 6px; background: #5b62e6; color: #fff; text-decoration: none; font-weight: 620; font-size: 16px; box-shadow: 0 8px 22px rgba(91,98,230,0.32), 0 1px 2px rgba(0,0,0,0.4); transition: background .15s, transform .15s cubic-bezier(0.16,1,0.3,1); } .ds-btn-primary:hover { background: #6a71f0; transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #7c83ff; outline-offset: 3px; } .ds-meta { font-weight: 450; font-size: 13px; opacity: .85; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "운영체제별 받기 줄의 버튼",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">받기</a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 6px; border: 1px solid #3a3d49; color: #f0f1f5; text-decoration: none; font-size: 14px; } .ds-btn-outline:hover { border-color: #5b62e6; background: rgba(91,98,230,0.12); } .ds-btn-outline:focus-visible { outline: 2px solid #7c83ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Term Chips",
+      "kind": "chip",
+      "refersTo": "chip-term",
+      "description": "질문에 쓴 말(중립)과 사전이 넓힌 말(청록)",
+      "html": "<span class=\"ds-chip\">중복</span><span class=\"ds-chip ds-chip-x\">dedupe</span>",
+      "css": ".ds-chip { display: inline-block; font-size: 13px; line-height: 24px; padding: 0 9px; border-radius: 12px; border: 1px solid #3a3d49; color: #d5d8e0; margin-right: 6px; } .ds-chip-x { border-color: rgba(44,198,224,0.55); color: #2cc6e0; background: rgba(44,198,224,0.12); }"
+    },
+    {
+      "name": "Impact Box",
+      "kind": "custom",
+      "refersTo": "app-panel",
+      "description": "승인 카드 안의 영향 반경 (앱에서 옮김)",
+      "html": "<div class=\"ds-impact\"><div class=\"ds-impact-head\">영향 반경 <span class=\"ds-risk\">위험도 높음</span></div><div class=\"ds-impact-stats\"><span class=\"ds-sym\">query_terms</span><span><b>4</b>직접 호출</span><span><b>24</b>간접 호출</span><span><b>17</b>파일에 걸침</span><span class=\"ds-warn\">테스트 없음</span></div></div>",
+      "css": ".ds-impact { padding: 10px 12px; border: 1px solid rgba(242,101,106,0.45); border-radius: 6px; background: #131419; font-size: 13px; color: #9ba1b0; } .ds-impact-head { color: #f0f1f5; font-weight: 600; display: flex; gap: 8px; align-items: center; } .ds-risk { font-size: 11.5px; color: #f2656a; background: rgba(242,101,106,0.12); border-radius: 10px; padding: 1px 8px; } .ds-impact-stats { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; } .ds-impact-stats b { color: #f0f1f5; margin-right: 4px; font-variant-numeric: tabular-nums; } .ds-sym { font-family: 'Cascadia Code', Consolas, monospace; color: #d5d8e0; font-size: 12.5px; } .ds-warn { color: #dcae3a; }"
+    },
+    {
+      "name": "Top Navigation",
+      "kind": "nav",
+      "refersTo": "button-outline",
+      "description": "로고 + 언어 전환·GitHub·받기",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\">Lantern IDE</a><span class=\"ds-links\"><a href=\"#\">English</a><a href=\"#\">GitHub</a><a href=\"#\">받기</a></span></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; height: 56px; padding: 0 24px; background: #16171c; } .ds-brand { color: #f0f1f5; font-weight: 650; text-decoration: none; } .ds-links { margin-left: auto; display: flex; gap: 24px; font-size: 14px; } .ds-links a { color: #d5d8e0; text-decoration: none; } .ds-links a:hover { color: #f0f1f5; } .ds-links a:focus-visible { outline: 2px solid #7c83ff; outline-offset: 3px; border-radius: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Working Map",
+    "overview": "이 사이트는 광고지가 아니라 일하는 중인 IDE 화면처럼 보인다. 바탕은 앱과 같은 어두운 편집기 바닥이고, 그 위에 Lantern 저장소 자체의 코드 지도가 깔려 있다. 스크롤이 에이전트 작업 하나를 진행시키고, 진행에 맞춰 지도 위에 맥락·읽음·수정·영향 반경이 켜진다. 색은 장식이 아니라 앱의 지도와 같은 의미를 가진다.",
+    "keyCharacteristics": ["앱과 같은 어두운 바닥(#16171c)과 앱 토큰 그대로", "뒤 장면은 실제 데이터(lantern graph)로 그린 캔버스 지도", "규칙선과 행, 표. 카드 격자와 제목 위 머리말 없음", "색 = 의미: 청록은 AI에 보낸 맥락, 남색은 행동·수정, 빨강·주황은 영향", "Pretendard 한 벌, 코드와 숫자만 코드 서체·표 숫자"],
+    "rules": [
+      { "name": "The Map Legend Rule", "body": "청록·남색·빨강·주황은 앱 지도의 범례와 같은 뜻으로만 쓴다.", "section": "colors" },
+      { "name": "The Measured Contrast Rule", "body": "모든 글자는 렌더된 색으로 잰다. 본문 4.5:1, 큰 글자 3:1 미만이면 배포하지 않는다.", "section": "colors" },
+      { "name": "The Hangul Leading Rule", "body": "한글은 행간을 라틴 기준보다 넉넉히 두고 음절 단위로 끊지 않는다.", "section": "typography" },
+      { "name": "The Tabular Numbers Rule", "body": "숫자는 서체를 바꾸지 않고 tabular-nums로 자릿수만 맞춘다.", "section": "typography" }
+    ],
+    "dos": ["Do 앱 토큰을 원본으로 둔다.", "Do 지도와 수치를 npm run export-map으로 다시 뽑는다.", "Do 설명용으로 만든 데이터에는 '예시'를 붙인다.", "Do 새 글자를 넣으면 npm run verify로 대비와 가로 넘침을 확인한다."],
+    "donts": ["Don't 제목 위에 작은 머리말(kicker)을 달지 않는다.", "Don't 그라데이션 글자를 쓰지 않는다.", "Don't 목록·카드에 1px보다 굵은 색 세로줄을 두지 않는다.", "Don't 아이콘 카드 3단 격자로 기능을 나열하지 않는다.", "Don't 네온 광채나 게임 같은 효과를 넣지 않는다."]
+  }
+}
