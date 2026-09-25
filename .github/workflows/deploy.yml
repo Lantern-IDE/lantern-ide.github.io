@@ -1,0 +1,98 @@
+name: 배포
+
+# main에 올리면 정적 사이트를 만들어 GitHub Pages에 올린다.
+# 받기 버튼의 설치 파일 주소는 빌드할 때 최신 릴리스에서 읽는다. 앱을 새로 릴리스하면 이 워크플로를 다시 돌린다
+# (Actions → 배포 → Run workflow, 또는 앱 저장소에서 repository_dispatch: lantern-release).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [lantern-release]
+
+# 배포는 한 번에 하나만. 진행 중인 배포는 끝까지 두고 대기시킨다.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: 정적 사이트 생성
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 의존성
+        run: npm ci
+
+      - name: 타입 검사
+        run: npm run typecheck
+
+      - name: 생성
+        env:
+          # GitHub API 호출 한도를 넉넉히 (최신 릴리스 읽기)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build
+
+      - name: 방향 계약이 빌드에 남았는지
+        run: grep -q "THESIS:" .output/public/index.html
+
+      - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
+        with:
+          # 저장소에 Pages가 꺼져 있으면 직접 켠다 (공개 저장소라 무료 플랜에서도 된다)
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: .output/public
+
+  deploy:
+    name: Pages 배포
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
+
+  smoke:
+    name: 배포 후 확인
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      # 배포가 성공했다는 것과 사이트가 실제로 뜬다는 것은 다르다 (경로가 어긋나 CSS가 404인 경우가 대표적)
+      - name: 페이지와 CSS 응답
+        run: |
+          base="https://lantern-ide.github.io"
+          fail=0
+          for path in "/" "/en/" "/favicon.svg" "/shots/impact-ko.png"; do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --retry 5 --retry-delay 5 --retry-all-errors "$base$path")
+            printf '  %-24s %s\n' "$path" "$code"
+            [ "$code" = "200" ] || fail=1
+          done
+          css=$(curl -sS "$base/" | grep -oE 'href="[^"]+\.css"' | head -1 | sed -E 's/href="([^"]+)"/\1/')
+          if [ -n "$css" ]; then
+            code=$(curl -sS -o /dev/null -w '%{http_code}' "$base$css")
+            printf '  %-24s %s\n' "css" "$code"
+            [ "$code" = "200" ] || fail=1
+          else
+            echo "  css 링크를 찾지 못했습니다"; fail=1
+          fi
+          exit $fail
