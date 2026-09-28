@@ -34,12 +34,13 @@ const en: Copy = {
     budget: (used, budget, ms) => `${used} / ${budget} tokens · assembled in ${ms} ms`,
     evidenceTitle: "How many answer files each approach retrieves at the same budget",
     evidence: [
-      { label: "Answer files retrieved (mean recall)", grep: "24%", lantern: "67%" },
-      { label: "Questions with at least one answer file", grep: "35%", lantern: "90%" },
+      { label: "Answer files retrieved (mean recall)", grep: "41%", lantern: "88%" },
+      { label: "An answer file among the first 3 files", grep: "30%", lantern: "65%" },
+      { label: "Same questions asked in Korean (recall)", grep: "38%", lantern: "76%" },
     ],
-    grep: "Keyword search",
+    grep: "Keyword search (snippets around matches)",
     lantern: "Lantern",
-    condition: "Measured on one private project (1,772 code files, 20 hand-labelled questions, 8,000-token budget). A public benchmark on an open-source codebase is in progress.",
+    condition: "Public benchmark on 60 real commits from Flask, Hono and Commons Lang. The question is the commit message and the answer is the files it changed, so nobody hand-picks answers. 8,000-token budget; picking the same number of files at random scores 10%. Anyone can reproduce it with eval/bench in the repository.",
   },
   read: {
     title: "What the agent read stays on the map.",
@@ -86,10 +87,10 @@ const en: Copy = {
   },
   models: {
     title: "You pick the model, and you can see everything it was sent.",
-    body: "Lantern doesn’t sell a model. Connect the API key you already use, or a local model on your machine.",
+    body: "Lantern doesn’t sell a model. Connect the API key you already use, or a local model on your machine, and pick from that provider’s model list. Switch between connected models right from the chat box.",
     rows: [
-      { term: "Anthropic", text: "Claude (API key)" },
-      { term: "OpenAI-compatible", text: "OpenAI, OpenRouter, vLLM, or any OpenAI-style endpoint" },
+      { term: "Cloud", text: "Claude, GPT, Gemini, DeepSeek, Grok, Mistral, Groq, OpenRouter (API key)" },
+      { term: "OpenAI-compatible", text: "vLLM or any other OpenAI-style endpoint" },
       { term: "Local", text: "Ollama, LM Studio. Your code never leaves the machine" },
     ],
     plain: ["No hidden system prompt", "No telemetry", "API keys in the OS credential store", "Monthly cost limit"],
@@ -99,10 +100,11 @@ const en: Copy = {
     body: "This is a beta built by one person. Worth knowing before you try it.",
     rows: [
       { term: "Code signing", text: "Not yet. On Windows, SmartScreen warns you; choose “More info → Run anyway”." },
-      { term: "macOS · Linux", text: "They build and pass tests, but haven’t been used day to day. macOS isn’t notarized, so you have to allow it the first time." },
+      { term: "macOS · Linux", text: "macOS has been installed and tried, but not used for long; Linux only builds and passes tests. macOS isn’t notarized, so you have to allow it the first time." },
+      { term: "Languages analyzed", text: "Context, the map and the impact radius understand Rust, Python, TypeScript/JavaScript, Java, Go and C#. Other languages get syntax colors only, and their impact radius shows “unknown”." },
+      { term: "Impact radius limits", text: "It finds calls by name (static analysis), so code a framework calls (@GetMapping, events, DI) may show no callers or tests. The card warns you when that’s likely." },
       { term: "Merges · conflicts", text: "No UI. If a pull diverges, choose merge or rebase in the terminal." },
       { term: "Extensions", text: "VS Code extensions don’t run. It connects language servers (TypeScript, Rust, Python)." },
-      { term: "Public benchmark", text: "Not yet. The recall numbers above come from one private project." },
     ],
   },
   close: {
@@ -110,7 +112,7 @@ const en: Copy = {
     body: "Before approving, read the impact radius on the card and press Show on map. Tell us what worked and what got in the way; it shapes the next beta.",
     os: [
       { os: "windows", name: "Windows 10 · 11", detail: "x64 installer", status: "Tested", tested: true },
-      { os: "mac", name: "macOS 11+", detail: "Apple Silicon · Intel", status: "Untested", tested: false },
+      { os: "mac", name: "macOS 11+", detail: "Apple Silicon · Intel", status: "Install verified", tested: false },
       { os: "linux", name: "Linux", detail: "AppImage · deb", status: "Untested", tested: false },
     ],
     github: "View on GitHub",

@@ -34,12 +34,13 @@ const ko: Copy = {
     budget: (used, budget, ms) => `${used} / ${budget} 토큰 · 조립 ${ms}ms`,
     evidenceTitle: "같은 예산에서 정답 파일을 몇 개 가져오나",
     evidence: [
-      { label: "정답 파일 적중률 (평균)", grep: "24%", lantern: "67%" },
-      { label: "정답 파일을 하나라도 가져온 질문", grep: "35%", lantern: "90%" },
+      { label: "정답 파일 적중률 (평균)", grep: "41%", lantern: "88%" },
+      { label: "처음 3개 파일 안에 정답", grep: "30%", lantern: "65%" },
+      { label: "같은 질문을 한국어로 (적중률)", grep: "38%", lantern: "76%" },
     ],
-    grep: "키워드 검색",
+    grep: "키워드 검색 (맞은 곳 앞뒤)",
     lantern: "Lantern",
-    condition: "비공개 프로젝트 하나(코드 파일 1,772개, 직접 정한 질문 20개, 예산 8,000토큰)에서 잰 값입니다. 공개 코드베이스로 만든 벤치마크를 준비하고 있습니다.",
+    condition: "Flask·Hono·Commons Lang의 실제 커밋 60개로 잰 공개 벤치마크입니다. 질문은 커밋 메시지, 정답은 그 커밋이 고친 파일이라 사람이 정답을 고르지 않습니다. 예산 8,000토큰, 같은 수의 파일을 무작위로 고르면 10%. 저장소의 eval/bench로 누구나 재현할 수 있습니다.",
   },
   read: {
     title: "에이전트가 무엇을 읽었는지 지도에 남습니다.",
@@ -86,10 +87,10 @@ const ko: Copy = {
   },
   models: {
     title: "모델은 직접 고르고, 보낸 것은 전부 보입니다.",
-    body: "Lantern은 모델을 팔지 않습니다. 쓰던 API 키나 컴퓨터 안의 로컬 모델을 연결합니다.",
+    body: "Lantern은 모델을 팔지 않습니다. 쓰던 API 키나 컴퓨터 안의 로컬 모델을 연결하고, 키를 넣으면 그 회사의 모델 목록에서 고릅니다. 연결해 둔 모델끼리는 채팅 입력창에서 바로 바꿉니다.",
     rows: [
-      { term: "Anthropic", text: "Claude (API 키)" },
-      { term: "OpenAI 호환", text: "OpenAI, OpenRouter, vLLM 등 OpenAI 형식 주소" },
+      { term: "클라우드", text: "Claude, GPT, Gemini, DeepSeek, Grok, Mistral, Groq, OpenRouter (API 키)" },
+      { term: "OpenAI 호환", text: "vLLM 등 OpenAI 형식 주소라면 무엇이든" },
       { term: "로컬", text: "Ollama, LM Studio. 코드가 컴퓨터 밖으로 나가지 않습니다" },
     ],
     plain: ["숨은 시스템 프롬프트 없음", "사용 통계 수집 없음", "API 키는 운영체제 자격 증명 저장소에", "월 비용 한도"],
@@ -99,10 +100,11 @@ const ko: Copy = {
     body: "혼자 만드는 베타입니다. 쓰기 전에 알아 두면 좋은 것들입니다.",
     rows: [
       { term: "코드 서명", text: "아직 없습니다. Windows에서 SmartScreen 경고가 뜨면 ‘추가 정보 → 실행’을 눌러야 합니다." },
-      { term: "macOS · Linux", text: "빌드와 테스트는 통과하지만 실제로 써 보지 않았습니다. 공증 전이라 macOS는 처음 열 때 허용이 필요합니다." },
+      { term: "macOS · Linux", text: "macOS는 설치해 확인했지만 오래 써 보지는 않았고, Linux는 빌드와 테스트만 통과했습니다. 공증 전이라 macOS는 처음 열 때 허용이 필요합니다." },
+      { term: "분석하는 언어", text: "맥락·지도·영향 반경은 Rust, Python, TypeScript·JavaScript, Java, Go, C#만 이해합니다. 그 밖의 언어는 코드 색만 나오고 영향 반경은 ‘알 수 없음’으로 보입니다." },
+      { term: "영향 반경의 한계", text: "이름으로 호출을 찾는 정적 분석이라, 프레임워크가 부르는 코드(@GetMapping, 이벤트, DI)는 호출자와 테스트가 안 보일 수 있습니다. 이런 코드는 카드에 경고로 표시합니다." },
       { term: "병합 · 충돌 해결", text: "화면이 없습니다. 풀이 갈라지면 터미널에서 병합이나 리베이스를 고릅니다." },
       { term: "확장 기능", text: "VS Code 확장은 쓸 수 없습니다. 언어 서버(TypeScript, Rust, Python)만 연결합니다." },
-      { term: "공개 벤치마크", text: "아직 없습니다. 위의 적중률은 비공개 프로젝트 하나로 잰 값입니다." },
     ],
   },
   close: {
@@ -110,7 +112,7 @@ const ko: Copy = {
     body: "승인하기 전에 카드의 영향 반경을 보고, ‘지도에서 보기’를 눌러 보세요. 무엇이 좋았고 무엇이 막혔는지 알려 주시면 다음 베타에 반영합니다.",
     os: [
       { os: "windows", name: "Windows 10 · 11", detail: "x64 설치 파일", status: "확인됨", tested: true },
-      { os: "mac", name: "macOS 11 이상", detail: "Apple Silicon · Intel", status: "실사용 확인 전", tested: false },
+      { os: "mac", name: "macOS 11 이상", detail: "Apple Silicon · Intel", status: "설치 확인됨", tested: false },
       { os: "linux", name: "Linux", detail: "AppImage · deb", status: "실사용 확인 전", tested: false },
     ],
     github: "GitHub에서 보기",
