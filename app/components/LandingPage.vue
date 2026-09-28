@@ -86,7 +86,7 @@ const sourceLine = computed(() => t.value.source(map.stats.files, map.stats.edge
       <span v-if="stage >= 2" class="ctx">{{ t.chips.context }} <b>{{ ctxFiles.length }}</b></span>
       <span v-if="stage >= 3">{{ t.chips.read }} <b>{{ task.read.length }}</b></span>
       <span v-if="stage >= 5">{{ t.chips.edited }} <b>1</b></span>
-      <span v-if="stage >= 4" class="risk">{{ t.chips.risk[impact.risk] }}</span>
+      <span v-if="stage >= 4" :class="['risk', `risk-${impact.risk}`]">{{ t.chips.risk[impact.risk] }}</span>
     </div>
     <ol class="steps">
       <li v-for="(k, i) in STEP_KEYS" :key="k" :class="{ now: stage === i + 1, past: stage > i + 1 }">{{ t.steps[k] }}</li>
@@ -196,7 +196,7 @@ const sourceLine = computed(() => t.value.source(map.stats.files, map.stats.edge
               <div v-else><span class="n">{{ l.n }}</span><span class="s" /><span>{{ l.code }}</span></div>
             </template>
           </div>
-          <div class="impact">
+          <div :class="['impact', `risk-${impact.risk}`]">
             <div class="impact-head"><i class="codicon codicon-pulse" />{{ t.impact.head }}<span class="risk">{{ t.chips.risk[impact.risk] }}</span></div>
             <div class="impact-stats num">
               <span class="sym">{{ impact.touched.join(", ") }}</span>
