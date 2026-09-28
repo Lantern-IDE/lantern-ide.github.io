@@ -109,7 +109,10 @@ code, .mono { font-family: var(--code-font); font-size: 0.86em; }
 .task-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 4px; padding-left: 24px; font-size: 12px; color: var(--muted); }
 .task-meta b { color: var(--fg-strong); font-weight: 600; }
 .task-meta .ctx b { color: var(--context); }
+/* 위험도 색은 앱과 같다: 낮음 초록, 보통 주황, 높음 빨강 */
 .task-meta .risk { color: var(--error); }
+.task-meta .risk.risk-medium { color: var(--warning); }
+.task-meta .risk.risk-low { color: var(--ok); }
 .steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; margin-top: 10px; padding: 0; list-style: none; }
 .steps li { font-size: 11px; color: var(--dim); padding-top: 6px; border-top: 2px solid var(--border-strong); transition: color 0.3s, border-color 0.3s; letter-spacing: 0.02em; }
 .steps li.past { color: var(--muted); border-top-color: #4a4f63; }
@@ -229,6 +232,10 @@ h2 { font-size: clamp(1.7rem, 2.9vw, 2.45rem); line-height: 1.24; letter-spacing
 .impact { margin: 10px 12px; padding: 10px 12px; border: 1px solid rgba(242, 101, 106, 0.45); border-radius: var(--radius); background: rgba(19, 20, 25, 0.6); }
 .impact-head { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--fg-strong); font-weight: 600; }
 .impact-head .risk { font-size: 11.5px; font-weight: 600; color: var(--error); background: rgba(242, 101, 106, 0.12); border-radius: 10px; padding: 1px 8px; }
+.impact.risk-medium { border-color: rgba(220, 174, 58, 0.45); }
+.impact.risk-medium .impact-head .risk { color: var(--warning); background: rgba(220, 174, 58, 0.14); }
+.impact.risk-low { border-color: rgba(69, 189, 134, 0.4); }
+.impact.risk-low .impact-head .risk { color: var(--ok); background: rgba(69, 189, 134, 0.14); }
 .impact-stats { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; font-size: 13px; color: var(--muted); }
 .impact-stats b { color: var(--fg-strong); font-weight: 650; margin-right: 4px; }
 .impact-stats .sym { color: var(--fg); font-family: var(--code-font); font-size: 12.5px; }
