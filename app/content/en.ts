@@ -34,13 +34,13 @@ const en: Copy = {
     budget: (used, budget, ms) => `${used} / ${budget} tokens · assembled in ${ms} ms`,
     evidenceTitle: "How many answer files each approach retrieves at the same budget",
     evidence: [
-      { label: "Answer files retrieved (mean recall)", grep: "41%", lantern: "88%" },
-      { label: "An answer file among the first 3 files", grep: "30%", lantern: "65%" },
-      { label: "Same questions asked in Korean (recall)", grep: "38%", lantern: "76%" },
+      { label: "Answer files retrieved (mean recall)", grep: "45%", lantern: "88%" },
+      { label: "An answer file among the first 3 files", grep: "35%", lantern: "65%" },
+      { label: "Same questions asked in Korean (recall)", grep: "43%", lantern: "76%" },
     ],
     grep: "Keyword search (snippets around matches)",
     lantern: "Lantern",
-    condition: "Public benchmark on 60 real commits from Flask, Hono and Commons Lang. The question is the commit message and the answer is the files it changed, so nobody hand-picks answers. 8,000-token budget; picking the same number of files at random scores 10%. Anyone can reproduce it with eval/bench in the repository.",
+    condition: "Public benchmark on 60 real commits from Flask, Hono and Commons Lang. The question is the commit message and the answer is the files it changed, so nobody hand-picks answers. 8,000-token budget; picking the same number of files at random scores 9%. Anyone can reproduce it with eval/bench in the repository.",
   },
   read: {
     title: "What the agent read stays on the map.",
@@ -101,7 +101,7 @@ const en: Copy = {
     rows: [
       { term: "Code signing", text: "Not yet. On Windows, SmartScreen warns you; choose “More info → Run anyway”." },
       { term: "macOS · Linux", text: "macOS has been installed and tried, but not used for long; Linux only builds and passes tests. macOS isn’t notarized, so you have to allow it the first time." },
-      { term: "Languages analyzed", text: "Context, the map and the impact radius understand Rust, Python, TypeScript/JavaScript, Java, Go and C#. Other languages get syntax colors only, and their impact radius shows “unknown”." },
+      { term: "Languages analyzed", text: "Context, the map and the impact radius understand Rust, Python, TypeScript/JavaScript, Java, Go, C#, Kotlin, C and C++. Other languages get syntax colors only, and their impact radius shows “unknown”." },
       { term: "Impact radius limits", text: "It finds calls by name (static analysis), so code a framework calls (@GetMapping, events, DI) may show no callers or tests. The card warns you when that’s likely." },
       { term: "Merges · conflicts", text: "No UI. If a pull diverges, choose merge or rebase in the terminal." },
       { term: "Extensions", text: "VS Code extensions don’t run. It connects language servers (TypeScript, Rust, Python)." },

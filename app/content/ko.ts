@@ -34,13 +34,13 @@ const ko: Copy = {
     budget: (used, budget, ms) => `${used} / ${budget} 토큰 · 조립 ${ms}ms`,
     evidenceTitle: "같은 예산에서 정답 파일을 몇 개 가져오나",
     evidence: [
-      { label: "정답 파일 적중률 (평균)", grep: "41%", lantern: "88%" },
-      { label: "처음 3개 파일 안에 정답", grep: "30%", lantern: "65%" },
-      { label: "같은 질문을 한국어로 (적중률)", grep: "38%", lantern: "76%" },
+      { label: "정답 파일 적중률 (평균)", grep: "45%", lantern: "88%" },
+      { label: "처음 3개 파일 안에 정답", grep: "35%", lantern: "65%" },
+      { label: "같은 질문을 한국어로 (적중률)", grep: "43%", lantern: "76%" },
     ],
     grep: "키워드 검색 (맞은 곳 앞뒤)",
     lantern: "Lantern",
-    condition: "Flask·Hono·Commons Lang의 실제 커밋 60개로 잰 공개 벤치마크입니다. 질문은 커밋 메시지, 정답은 그 커밋이 고친 파일이라 사람이 정답을 고르지 않습니다. 예산 8,000토큰, 같은 수의 파일을 무작위로 고르면 10%. 저장소의 eval/bench로 누구나 재현할 수 있습니다.",
+    condition: "Flask·Hono·Commons Lang의 실제 커밋 60개로 잰 공개 벤치마크입니다. 질문은 커밋 메시지, 정답은 그 커밋이 고친 파일이라 사람이 정답을 고르지 않습니다. 예산 8,000토큰, 같은 수의 파일을 무작위로 고르면 9%. 저장소의 eval/bench로 누구나 재현할 수 있습니다.",
   },
   read: {
     title: "에이전트가 무엇을 읽었는지 지도에 남습니다.",
@@ -101,7 +101,7 @@ const ko: Copy = {
     rows: [
       { term: "코드 서명", text: "아직 없습니다. Windows에서 SmartScreen 경고가 뜨면 ‘추가 정보 → 실행’을 눌러야 합니다." },
       { term: "macOS · Linux", text: "macOS는 설치해 확인했지만 오래 써 보지는 않았고, Linux는 빌드와 테스트만 통과했습니다. 공증 전이라 macOS는 처음 열 때 허용이 필요합니다." },
-      { term: "분석하는 언어", text: "맥락·지도·영향 반경은 Rust, Python, TypeScript·JavaScript, Java, Go, C#만 이해합니다. 그 밖의 언어는 코드 색만 나오고 영향 반경은 ‘알 수 없음’으로 보입니다." },
+      { term: "분석하는 언어", text: "맥락·지도·영향 반경은 Rust, Python, TypeScript·JavaScript, Java, Go, C#, Kotlin, C, C++만 이해합니다. 그 밖의 언어는 코드 색만 나오고 영향 반경은 ‘알 수 없음’으로 보입니다." },
       { term: "영향 반경의 한계", text: "이름으로 호출을 찾는 정적 분석이라, 프레임워크가 부르는 코드(@GetMapping, 이벤트, DI)는 호출자와 테스트가 안 보일 수 있습니다. 이런 코드는 카드에 경고로 표시합니다." },
       { term: "병합 · 충돌 해결", text: "화면이 없습니다. 풀이 갈라지면 터미널에서 병합이나 리베이스를 고릅니다." },
       { term: "확장 기능", text: "VS Code 확장은 쓸 수 없습니다. 언어 서버(TypeScript, Rust, Python)만 연결합니다." },
